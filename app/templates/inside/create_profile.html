@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{{ url_for('profiles.create_profile') }}" method="post">
+    <div>
+        <label for="profile_name">Profile name:</label>
+        <input type="text" name="profile_name" id="profile_name">
+    </div>
+    <input type="submit" value="CREATE">
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'profile_base.html' %}
+{% block content %}
+<div>
+    <h2>Profile name: {{ profile.profile_name }}</h2>
+    <h3>Profile ID: {{ profile.id }}</h3>
+    <p>
+        language: {{ language }}
+        rate: {{ rate }}
+    </p>
+
+</div>
+{% endblock %}

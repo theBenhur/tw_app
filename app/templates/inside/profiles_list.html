@@ -1,0 +1,12 @@
+{% extends 'inner_base.html' %}
+{% block content %}
+<p>List of ur currents profiles: 
+    
+</p>
+<a href="{{ url_for('profiles.create_profile') }}">Create a new profile</a>
+<ul>
+    {% for profile in profiles %}
+    <li><a href="{{ url_for('profiles.profile_by_id',id=profile.id) }}">{{ profile.profile_name }}</a> </li>
+    {% endfor %}
+</ul>
+{% endblock %}
