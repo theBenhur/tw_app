@@ -1,0 +1,44 @@
+{% extends 'inside/base.html' %}
+{% include 'inside/header_profile.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center h-100">
+    <div class="col col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                <form action="insercion_perfil.php" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                <input id="id" value="<?php echo $rows['Id'] ?>" name="id" hidden/>
+                    <label for="usuario">Nombre de usuario</label>
+                    <p id="perfil_existe" class="alert alert-danger" hidden>Ya existe ese usuario</p>
+                    <input id="nombre_oculto" name="nombre_oculto" value="<?php echo $rows['Nombre']?>" hidden/>
+
+                    <input type="text" name="usuario" id="usuario" class="form-control"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clasificacion">Clasificaión</label>
+                    <select id="clasificacion" name="clasificacion[]" class="form-control" >
+                        
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="idioma">Idioma de tu preferencia</label>
+                    <select id="idioma" name="idioma[]" class="form-control">
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Imagen">
+                        Selecciona la imagen: 
+                    </label>
+                    <input type="file" name="imagen" id="imagen" accept="image/png"/>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Crear" id="guardar" disabled/>
+                </form>
+                
+            </div>
+    </div>
+            <div class="container my-1">
+            <br><br><br><br><br><br>
+            </div>
+
+{% endblock %}

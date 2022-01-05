@@ -56,7 +56,7 @@ def home():
         current_profile=Profile.query.filter_by(profile_name=profile).filter(Profile.user_id == current_user.id).first()
         print('Not None {}'.format(current_profile))
 
-    return render_template('home.html',title='HOME',current_profile=current_profile,profiles=profiles)
+    return render_template('inside/home.html',title='HOME',current_profile=current_profile,profiles=profiles)
     
 # @app.route('/profiles/create',methods=['GET','POST'])
 # def create_profile():

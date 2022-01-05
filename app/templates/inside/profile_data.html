@@ -1,12 +1,60 @@
-{% extends 'profile_base.html' %}
+{% extends 'inside/base.html' %}
+{% include 'inside/header_profile.html' %}
 {% block content %}
-<div>
-    <h2>Profile name: {{ profile.profile_name }}</h2>
-    <h3>Profile ID: {{ profile.id }}</h3>
-    <p>
-        language: {{ language }}
-        rate: {{ rate }}
-    </p>
-
-</div>
+<h2>Editar perfil</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="container">
+                    <div class="card text-white bg-ligth border-dark" style="width:400px">
+                        <img class="card-img-top" src="{{ url_for('images.return_image',image=profile.img_path) }}" alt="{{ profile.img_path }}" style="width:100%">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ profile.profile_name }}</h4>
+                            <p class="card-text">Usuario tipo: {{ plan }}</p>
+                            <button class="btn btn-primary  w-100" id="editar_">Editar perfil</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-5">
+                <form action="actualizar_datos.php" method="POST" enctype="multipart/form-data">
+                <div class="md-form">
+                    <label for="usuario">Nombre de perfil</label>
+                    <p id="perfil_existe" class="alert alert-danger" hidden>Ya existe ese usuario</p>
+                    <input id="nombre_oculto" name="nombre_oculto" value="<?php echo $rows['Nombre']?>" hidden/>
+                    <input type="text" name="usuario" id="usuario" class="form-control mdb-autocomplete" value="{{ profile.profile_name }}" disabled/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clasificacion">Clasificaión</label>
+                    <select id="clasificacion" name="clasificacion[]" class="form-control" disabled>
+                        <option value="" selected disabled hidden>Some option</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="idioma">Idioma de tu preferencia</label>
+                    <select id="idioma" name="idioma[]" class="form-control" disabled>
+                        <option value="" selected disabled hidden><?php echo $rows['idioma']?></option>
+                        {% for language in languages %}
+                        <option value="{{ language.id }}">{{ language.language }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Imagen">
+                        Selecciona la imagen: 
+                    </label>
+                    <input type="file" name="imagen" id="imagen" accept="image/all"  disabled/>
+                </div>
+                <input type="submit" class="btn btn-success" value="Guardar" id="guardar" disabled />
+                </form>
+            </div>
+            <a href="{{ url_for('profiles.add_profile')}}"><button class="btn btn-warning">Añadir perfil</button></a>
+            <a href="crear_perfil.php"><button class="btn btn-info">Eliminar perfil</button></a>
+    </div>
+    <div class="container">
+        <br>
+        <br>
+    </div>
 {% endblock %}

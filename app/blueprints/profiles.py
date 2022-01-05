@@ -1,5 +1,5 @@
 from app import db 
-from app.models import Language,Profile,Rate
+from app.models import Language, Plan,Profile,Rate,User
 from flask_login import current_user,login_required
 from flask import Blueprint,render_template,request,redirect,url_for
 
@@ -28,6 +28,15 @@ def create_profile():
 def profile_by_id(id):
     profile_data=Profile.query.get(int(id))
     language=Language.query.get(profile_data.language_id).language
+    languages=Language.query.all()
+    plan=Plan.query.get(int(User.query.get(int(current_user.id)).plan_id))
     # rate=Rate.query.get(profile_data.rate_id).letter
-    return render_template('profile_data.html',profile=profile_data,
-            language=language)
+    return render_template('inside/profile_data.html',profile=profile_data,
+            language=language,languages=languages,plan=plan)
+
+@router.route('/add',methods=['GET','POST'])
+@login_required
+def add_profile():
+    if request.method == 'GET':
+        return render_template('inside/add_profile.html',title='ADD PROFILE')
+    
