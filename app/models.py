@@ -37,7 +37,7 @@ class Profile(db.Model):
     profile_name=db.Column(db.String(64),unique=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     language_id=db.Column(db.Integer,db.ForeignKey('language.id'))
-    img_path=db.Column(db.String(128),default='/img_profile/default.jpg')
+    img_path=db.Column(db.String(128),default='default.jpg')
     def __repr__(self) -> str:
         return '{} - {}'.format(self.user_id,self.profile_name)
 

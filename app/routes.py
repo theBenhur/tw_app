@@ -2,22 +2,25 @@ from flask_login.utils import login_required,login_user,logout_user,current_user
 from flask_migrate import current
 from werkzeug.utils import redirect
 from app import app,db
-from flask import request,url_for
+from flask import request,url_for,Response,jsonify
 from app.models import Plan, User,Profile,Rate,Language
 from flask.templating import render_template
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/log_in',methods=['GET','POST'])
 def log_in():
+    if current_user.is_active:
+        return redirect(url_for('home'))
     if request.method == 'GET':
         return render_template('outside/login.html',title="LOGIN")
     if request.method == 'POST':
-        username=request.form['username']
-        user=User.query.filter_by(username=username).first()
-        if user is None or not user.check_password(request.form['password']): #if user exists
-            return redirect(url_for('log_in'))
-        
-        login_user(user,remember=False)
-        return redirect(url_for('home'))
+        user=request.get_json()
+        if user['username'] != '':
+            user=User.query.filter_by(username=user['username']).first()
+            if user is None or not user.check_password(user['password']): #if user exists
+                return jsonify({'message':'Wrong data'}),404
+            login_user(user,remember=False)
+            return redirect(url_for('home'))
+        return jsonify({'message':'You must provide an username'}),404
 
 @app.route('/sign_up',methods=['GET','POST'])
 def sign_up():

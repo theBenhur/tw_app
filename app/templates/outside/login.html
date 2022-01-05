@@ -9,7 +9,7 @@
                 </div> 
                 <div class="row h-50 align-items-center text-dark">
                     <div class="col">
-                        <form action="" method="POST" id="ingresar">
+                        <form  action="{{ url_for('log_in') }}" method="POST" id="ingresar">
                             <div class="form-group">
                                 <label for="username">Usuario</label>
                                 <input type="text" name="username" id="username" class="form-control" />
@@ -18,7 +18,7 @@
                                 <label for="password">Contraseña</label>
                                 <input type="password" name="password" id="password" class="form-control" />
                             </div>
-                            <button type="submit" class="btn btn-danger" id="ingres">Ingresar</button>
+                            <input type="submit" class="btn btn-danger" value="LOG IN"></input>
                             
                         </form>
                     </div>
@@ -27,7 +27,7 @@
                     <p >No tienes cuenta <a href="{{ url_for('sign_up') }}" >Registrate</a></p>
                     <div class="container justify-content-center" style="display: none;" id="error"></div>
                 </div> 
-                <div id="sin_sesion"></div>
+                <div id="wrong_credentials"></div>
             </div>
             <div class="col">
                 <img src="/static/imgs/logo_footer.png" class="img-fluid" alt="">
@@ -35,6 +35,6 @@
         </div>
     </div>
     <br>
-    <script defer src="js/inicio_sesion.js"></script>
-</body>
+    <script defer src="/static/js/login.js"></script>
 {% endblock %}
+</body>
