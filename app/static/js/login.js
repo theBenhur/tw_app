@@ -21,15 +21,21 @@ function login(e){
         body
     })
     .then( async response=>{
+        console.log(response)
         return {
             status:response.status,
             ...await response.json()
         }
     })
     .then(response => {
+        console.log(response)
         if(response.status == 404){
             const wrong_crendetials=document.getElementById("wrong_credentials")
             wrong_crendetials.innerHTML=`<p class="danger">${response.message}</p>`
+        }
+        if(response.status == 200){
+            alert(response.message)
+            window.location.href='/home'
         }
     })
     .catch(err => {

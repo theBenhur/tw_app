@@ -13,13 +13,14 @@ def log_in():
     if request.method == 'GET':
         return render_template('outside/login.html',title="LOGIN")
     if request.method == 'POST':
-        user=request.get_json()
-        if user['username'] != '':
-            user=User.query.filter_by(username=user['username']).first()
-            if user is None or not user.check_password(user['password']): #if user exists
+        body=request.get_json()
+        if body['username'] != '':
+            user=User.query.filter_by(username=body['username']).first()
+            print('-----',user,user.password)
+            if user is None or not user.check_password(body['password']): #if user exists
                 return jsonify({'message':'Wrong data'}),404
             login_user(user,remember=False)
-            return redirect(url_for('home'))
+            return jsonify({'message':'All ok'}),200
         return jsonify({'message':'You must provide an username'}),404
 
 @app.route('/sign_up',methods=['GET','POST'])
@@ -27,7 +28,7 @@ def sign_up():
     if request.method == 'GET':
         plans=Plan.query.all()
         languages=Language.query.all()
-        return render_template('sign_up.html',title="SIGNUP",
+        return render_template('outside/sign_up.html',title="SIGNUP",
             plans=plans, languages=languages)
     if request.method == 'POST':
         username=request.form['username']
