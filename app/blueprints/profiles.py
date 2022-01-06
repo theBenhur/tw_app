@@ -29,11 +29,18 @@ def profile_by_id(id):
     profile_data=Profile.query.get(int(id))
     language=Language.query.get(profile_data.language_id).language
     languages=Language.query.all()
-    plan=Plan.query.get(int(User.query.get(int(current_user.id)).plan_id))
+    plan=Plan.query.get(int(User.query.get(int(current_user.id)).plan_id)).plan_name
     # rate=Rate.query.get(profile_data.rate_id).letter
     return render_template('inside/profile_data.html',profile=profile_data,
             language=language,languages=languages,plan=plan)
 
+@router.route('/update/<id>',methods=['POST'])
+def update_profile(id):
+    body=request.get_json()
+    profilename=body['profilename']
+    language=body['language']
+    profile=Profile.query.filter_by(profile_name=profilename).filter(user_id=id).first()
+    
 @router.route('/add',methods=['GET','POST'])
 @login_required
 def add_profile():

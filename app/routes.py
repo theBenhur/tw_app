@@ -31,19 +31,22 @@ def sign_up():
         return render_template('outside/sign_up.html',title="SIGNUP",
             plans=plans, languages=languages)
     if request.method == 'POST':
-        username=request.form['username']
-        email=request.form['email']
-        password=request.form['password']
-        plan_id=request.form['plan']
-        new_user=User(username=username,email=email,plan_id=plan_id)
-        new_user.set_password(password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        new_profile=Profile(user_id=new_user.id,profile_name=username,
-            language_id=request.form['language'])
-        db.session.add(new_profile)
-        db.session.commit()
-        return redirect(url_for('log_in'))
+        body=request.get_json()
+        username=body['username']
+        if User.query.filter_by(username=username).first() is None:
+            email=body['email']
+            password=body['password']
+            plan_id=body['plan']
+            new_user=User(username=username,email=email,plan_id=plan_id)
+            new_user.set_password(password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            new_profile=Profile(user_id=new_user.id,profile_name=username,
+                language_id=body['language'])
+            db.session.add(new_profile)
+            db.session.commit()
+            return jsonify({'message':'User created'}),201
+        return jsonify({'message':'Username already taken'}),200
 
 @app.route('/home')
 @login_required
