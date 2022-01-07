@@ -17,17 +17,17 @@
                 </div>
             </div>
             <div class="col mb-5">
-                <form action="actualizar_datos.php" method="POST" enctype="multipart/form-data">
+                <form action="{{ url_for('profiles.update_profile',id=profile.id) }}" method="post" enctype="multipart/form-data">
                 <div class="md-form">
                     <label for="usuario">Nombre de perfil</label>
                     <p id="perfil_existe" class="alert alert-danger" hidden>Ya existe ese usuario</p>
                     <input id="nombre_oculto" name="nombre_oculto" hidden value="<?php echo $rows['Nombre']?>" />
-                    <input type="text" name="usuario" id="usuario" class="form-control mdb-autocomplete" value="{{ profile.profile_name }}"/>
+                    <input type="text" name="profilename" id="profilename" class="form-control mdb-autocomplete" value="{{ profile.profile_name }}"/>
                 </div>
                 
                 <div class="form-group">
-                    <label for="idioma">Idioma de tu preferencia</label>
-                    <select id="idioma" name="idioma[]" class="form-control" >
+                    <label for="language">Idioma de tu preferencia</label>
+                    <select id="language" name="language" class="form-control" >
                         <option value="" selected disabled >Current laguage - {{ language }}</option>
                         {% for language in languages %}
                         <option value="{{ language.id }}">{{ language.language }}</option>
@@ -43,11 +43,13 @@
                 <input type="submit" class="btn btn-success" value="Guardar" id="guardar"  />
                 </form>
             </div>
-            <a href="{{ url_for('profiles.add_profile')}}"><button class="btn btn-warning">Añadir perfil</button></a>
-            <a href="crear_perfil.php"><button class="btn btn-info">Eliminar perfil</button></a>
+            <a href="{{ url_for('profiles.create_profile')}}"><button class="btn btn-warning">Añadir perfil</button></a>
+            <a href="{{ url_for('profiles.delete_profile',id=profile.id) }}"><button class="btn btn-info" id="delete_profile">Eliminar perfil</button></a>
     </div>
     <div class="container">
         <br>
         <br>
     </div>
+    <script src="/static/js/updateProfile.js"></script>
+    <script src="/static/js/deleteProfile.js"></script>
 {% endblock %}
