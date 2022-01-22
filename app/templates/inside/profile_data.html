@@ -1,13 +1,14 @@
 {% extends 'inside/base.html' %}
 {% include 'inside/header_profile.html' %}
 {% block content %}
+<br>
 <h2>Editar perfil</h2>
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="container">
                     <div class="card  bg-ligth border-dark" style="width:400px">
-                        <img class="card-img-top" src="{{ url_for('images.return_image',image=profile.img_path) }}" alt="{{ profile.img_path }}" style="width:100%">
+                        <img class="card-img-top" src="{{ url_for('images.profile_img',image=profile.img_path) }}" alt="{{ profile.img_path }}" style="width:100%">
                         <div class="card-body">
                             <h4 class="card-title">{{ profile.profile_name }}</h4>
                             <p class="card-text">Usuario tipo: {{ plan }}</p>
@@ -28,7 +29,7 @@
                 <div class="form-group">
                     <label for="language">Idioma de tu preferencia</label>
                     <select id="language" name="language" class="form-control" >
-                        <option value="" selected disabled >Current laguage - {{ language }}</option>
+                        <option value="{{ language.id}}" selected disabled >Current laguage - {{ language.language }}</option>
                         {% for language in languages %}
                         <option value="{{ language.id }}">{{ language.language }}</option>
                         {% endfor %}
@@ -42,9 +43,13 @@
                 </div>
                 <input type="submit" class="btn btn-success" value="Guardar" id="guardar"  />
                 </form>
+                <div>
+                    <a href="{{ url_for('profiles.create_profile')}}"><button class="btn btn-warning">Añadir perfil</button></a>
+                </div>
+                <div>
+                    <a href="{{ url_for('profiles.delete_profile',id=profile.id) }}"><button class="btn btn-info" id="delete_profile">Eliminar perfil</button></a>
+                </div>
             </div>
-            <a href="{{ url_for('profiles.create_profile')}}"><button class="btn btn-warning">Añadir perfil</button></a>
-            <a href="{{ url_for('profiles.delete_profile',id=profile.id) }}"><button class="btn btn-info" id="delete_profile">Eliminar perfil</button></a>
     </div>
     <div class="container">
         <br>

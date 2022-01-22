@@ -1,8 +1,96 @@
 {% extends 'inside/base.html' %}
 {% include 'inside/header.html' %}
 {% block content %}
-<h2>Welcome, {{ current_user.username }}</h2>
-<p> Ur ID is: {{ current_user.id }}</p>
+<div class="container-fluid my-auto">
+  <br><br>
+  <h2 class="display-4">Welcome, {{ current_profile.profile_name }}</h2>
+  <div class="container">
+  <h2 class="display-4">Sigue viendo...</h2>
+  <!--Carousel Wrapper-->
+<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <div class="view">
+              <img class="d-block carousel-inner" src="{{ url_for('images.movie_img',image=movies[0].movie_img_path)}}"
+                alt="First slide">
+              <div class="mask rgba-black-light"></div>
+            </div>
+            <div class="carousel-caption">
+              <h3 class="h3-responsive">{{ movies[0].movie_name }}</h3>
+              <p>{{ movies[0].rate_id }}</p>
+            </div>
+          </div>
+    {% for movie in movies[1:] %}
+      <div class="carousel-item justify-content-center">
+        <div class="view">
+          <img class="d-block carousel-inner" src="{{ url_for('images.movie_img',image=movie.movie_img_path)}}"
+            alt="First slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">{{ movie.movie_name }}</h3>
+          <p>{{ movie.rate_id }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <!--/.Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+  </div>
+  <!--/.Carousel Wrapper-->
+
+    <br>
+    <br>
+    <br>
+    <div class="container mt-5">
+    
+        <p class="h3">O sigue con tus...</p>
+    </div>
+    <div class="container text-center">
+        <h3 class="display-">Programas</h3>
+    <div class="row">
+      {% for serie in series %}
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+        <img src="{{ url_for('images.serie_img',image=serie.serie_img_path) }}" alt="...">
+        <div class="caption" id="img">
+            <h3>Nombre: {{ serie.serie_name }}</h3>
+            <p>Duracion: {{ serie.length }}</p>
+            <p>Capitulo: {{ serie.chapter_number }}</p>
+            <p>Clasificacion: {{ serie.id_rate }}</p>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    <h3 class="display-5">Peliculas</h3>
+    <div class="row">
+      {% for movie in movies %}
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+        <img src="{{ url_for('images.movie_img',image=movie.movie_img_path) }}" alt="...">
+        <div class="caption" id="img">
+            <h3>Nombre: {{ movie.movie_name }}</h3>
+            <p>Duracion: {{ movie.length }}</p>
+            <p>Clasificacion: {{ movie.rate_id }}</p>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+
+</div>
 <p> 
 </p>
 {% endblock %}

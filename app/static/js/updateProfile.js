@@ -4,14 +4,14 @@ function update(e){
     formData.append('profilename',document.getElementById('profilename').value)
     formData.append('language',document.getElementById('language').value)
     formData.append('image',document.querySelector('input[name="image"]').files[0])
+
     const url=e.target.action
+    
     fetch(url,{
-        method:'POST',
-        // headers:{'Content-Type':'application/json'},
+        method:'PUT',
         body:formData
     })
     .then(async response=>{
-        console.log(response)
         return {
             status:response.status,
             ...await response.json()

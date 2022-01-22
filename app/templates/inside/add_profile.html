@@ -15,6 +15,9 @@
                 <div class="form-group">
                     <label for="rate">Rate:</label>
                     <select id="rate" name="rate" class="form-control" >
+                    {% for rate in rates %}
+                        <option value="{{ rate.id }}">{{ rate.letter }}</option>
+                    {% endfor %}
                     </select>
                 </div>
                 

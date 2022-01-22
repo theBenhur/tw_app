@@ -1,40 +1,37 @@
 {% extends 'outside/base.html' %}
 {% block content %}
-<body>
-    <div class="container h-100 align-items-center">
-        <div class="row">
-            <div class="col mt-2">
-                <div class="row">
-                    <h2 class="display-4 text-dark">Identifiquese para entrar</h2>
-                </div> 
-                <div class="row h-50 align-items-center text-dark">
-                    <div class="col">
-                        <form  action="{{ url_for('log_in') }}" method="POST" id="ingresar">
-                            <div class="form-group">
-                                <label for="username">Usuario</label>
-                                <input type="text" name="username" id="username" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" name="password" id="password" class="form-control" />
-                            </div>
-                            <input type="submit" class="btn btn-danger" value="LOG IN"></input>
-                            
-                        </form>
-                    </div>
+<div class="container h-100 align-items-center">
+    <div class="row">
+        <div class="col mt-2">
+            <div class="row">
+                <h2 class="display-4 text-dark">Identifiquese para entrar</h2>
+            </div> 
+            <div class="row h-50 align-items-center text-dark">
+                <div class="col">
+                    <form action="{{ url_for('auth.log_in') }}" method="POST" id="ingresar">
+                        <div class="form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" name="username" id="username" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" name="password" id="password" class="form-control" />
+                        </div>
+                        <input type="submit" class="btn btn-danger" value="LOG IN"></input>
+                    </form>
                 </div>
-                <div class="row justify-content-center">
-                    <p >No tienes cuenta <a href="{{ url_for('sign_up') }}" >Registrate</a></p>
-                    <div class="container justify-content-center" style="display: none;" id="error"></div>
-                </div> 
-                <div id="wrong_credentials"></div>
             </div>
-            <div class="col">
-                <img src="/static/imgs/logo_footer.png" class="img-fluid" alt="">
-            </div>
+            <div class="row justify-content-center">
+                <p >No tienes cuenta <a href="{{ url_for('auth.sign_up') }}" >Registrate</a></p>
+                <div class="container justify-content-center" style="display: none;" id="error"></div>
+            </div> 
+            <div id="sin_sesion"></div>
+        </div>
+        <div class="col">
+            <img src="/static/imgs/logo_footer.png" class="img-fluid" alt="">
         </div>
     </div>
-    <br>
-    <script defer src="/static/js/login.js"></script>
+</div>
+<script defer src="/static/js/login.js"></script>
 {% endblock %}
 </body>

@@ -1,50 +1,53 @@
 {% extends 'outside/base.html' %}
 {% block content %}
 
-<body>
-    <div class="mx-auto container-fluid  h-100 align-items-center p-4 mb-4">
-        <div class="container">
-            <h2 class=" text-center">Sea parte de nuestra comunidad</h2>
-        <div class="row mx-auto">
-            <div class="col mt-2">
-                <form action="" method="POST" id="sign-up-form">
-                    <div class="form-group">
-                        <label for="username">Nombre de username:</label>
-                        <input type="text" name="username" class="form-control" id="username"/>
-                    </div>
-                    <p id="exists-user"></p>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" class="form-control" id="email" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña:</label>
-                        <input type="password" name="password" class="form-control" id="password" />
-                    </div>
-                    <div class="form-group">
-                        <label for="language">Selecciona el idioma de tu preferencia</label>
-                        <select name="language" id="language" class="form-control">
-                            <option value="" class="form-control">Select an element</option>
-                            {% for language in languages %}
-                                <option value="{{ language.id }}" class="form-control">{{ language.language }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="plan">Selecciona el plan de tu preferencia</label>
-                        <select name="plan" id="plan" class="form-control">
-                            <option value="" class="form-control">Select an element</option>
-                            {% for plan in plans %}
-                            <option value="{{ plan.id }}" class="form-control">{{ plan.plan_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <input type="submit" class="btn btn-primary" id="sign-up" value="SIGN UP"/>
-                    <p>Return to <a href="{{ url_for('log_in') }}">log in</a></p>
-                </form>
+<div class="mx-auto container-fluid  h-100 align-items-center p-4 mb-4">
+    <div class="container">
+    <div class="row text-center">
+        <h2 class=" text center">Sea parte de nuestra comunidad</h2>
+    </div>
+    <div class="row mx-auto">
+        <div class="col mt-2">
+            <form action="" method="POST" id="sign-up-form">
+            <div class="form-group">
+                <p id="existe"></p>
+                <label for="username">Nombre de username:</label>
+                <input type="text" name="username" class="form-control" id="username"/>
             </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control" id="email" />
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" class="form-control" id="password" />
+            </div>
+            <div class="form-group">
+                <label for="language">Selecciona el idioma de tu preferencia</label>
+                <select name="language" id="language" class="form-control">
+                    <option value="" class="form-control">Select an element</option>
+                    {% for language in languages %}
+                        <option value="{{ language.id }}" class="form-control">{{ language.language }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="plan">Selecciona el plan de tu preferencia</label>
+                <select name="plan" id="plan" class="form-control">
+                    <option value="" class="form-control">Select an element</option>
+                    {% for plan in plans %}
+                    <option value="{{ plan.id }}" class="form-control">{{ plan.plan_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <p id="mensaje"></p>
+            <input type="submit" class="btn btn-primary" id="sign-up" value="SIGN UP"/>
+            <p>Return to <a href="{{ url_for('auth.log_in') }}">log in</a></p>
+        </form>
         </div>
     </div>
-    </div>
-    <script src="/static/js/signup.js"></script>
+</div>
+</div>
+<br>
+<script src="/static/js/signup.js"></script>
 {% endblock %}

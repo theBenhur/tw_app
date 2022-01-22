@@ -3,3 +3,6 @@ __pycache__
 app.db
 migrations
 movies_app
+imgs
+movie_data.py
+serie_data.py

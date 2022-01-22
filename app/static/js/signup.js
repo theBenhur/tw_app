@@ -24,7 +24,7 @@ function signUp(e){
         .then(response=>{
             if(response.status == 201){
                 alert(response.message)
-                window.location.href='/log_in'
+                window.location.href='/'
             }
             if(response.status == 200){
                 alert(response.message)

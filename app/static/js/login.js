@@ -1,5 +1,5 @@
-function verify_fields(username,password){
-    return username.length>0 && password.length>0
+function areFilled(username,password){
+    return username.length && password.length
 }
 function login(e){
     e.preventDefault()
@@ -9,26 +9,24 @@ function login(e){
         username,
         password
     })
-    const url=e.target.action
-
-    if(!verify_fields(username,password)){
+    
+    if(!areFilled(username,password)){
         alert('You must provide all the fields')
         return 
     }
+    const url=e.target.action
     fetch(url,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body
     })
     .then( async response=>{
-        console.log(response)
         return {
             status:response.status,
             ...await response.json()
         }
     })
     .then(response => {
-        console.log(response)
         if(response.status == 404){
             const wrong_crendetials=document.getElementById("wrong_credentials")
             wrong_crendetials.innerHTML=`<p class="danger">${response.message}</p>`

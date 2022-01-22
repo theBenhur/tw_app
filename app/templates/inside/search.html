@@ -1,0 +1,28 @@
+{% extends 'inside/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-9">
+            <label for="search">Type movie/serie's name</label>
+            <input class="form-control" type="text" id="search" name="search"/>
+        </div>
+        <div class="col">
+            <label for="rate">Rate</label>
+            <select name="rate" id="rate" class="form-control text-center">
+                <option value="" selected></option>";
+                {% for rate in rates %}
+                    <option value="{{ rate.id }}"> {{ rate.letter }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div id="wrapper-movies"></div>
+    </div>
+    
+    <div class="row">
+        <div id="wapper-series"></div>
+    </div>
+</div>
+{% endblock %}

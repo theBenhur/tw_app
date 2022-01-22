@@ -6,64 +6,64 @@ from flask import request,url_for,Response,jsonify
 from app.models import Plan, User,Profile,Rate,Language
 from flask.templating import render_template
 
-@app.route('/log_in',methods=['GET','POST'])
-def log_in():
-    if current_user.is_active:
-        return redirect(url_for('home'))
-    if request.method == 'GET':
-        return render_template('outside/login.html',title="LOGIN")
-    if request.method == 'POST':
-        body=request.get_json()
-        if body['username'] != '':
-            user=User.query.filter_by(username=body['username']).first()
-            print('-----',user,user.password)
-            if user is None or not user.check_password(body['password']): #if user exists
-                return jsonify({'message':'Wrong data'}),404
-            login_user(user,remember=False)
-            return jsonify({'message':'All ok'}),200
-        return jsonify({'message':'You must provide an username'}),404
+# @app.route('/log_in',methods=['GET','POST'])
+# def log_in():
+#     if current_user.is_active:
+#         return redirect(url_for('home'))
+#     if request.method == 'GET':
+#         return render_template('outside/login.html',title="LOGIN")
+#     if request.method == 'POST':
+#         body=request.get_json()
+#         if body['username'] != '':
+#             user=User.query.filter_by(username=body['username']).first()
+#             print('-----',user,user.password)
+#             if user is None or not user.check_password(body['password']): #if user exists
+#                 return jsonify({'message':'Wrong data'}),404
+#             login_user(user,remember=False)
+#             return jsonify({'message':'All ok'}),200
+#         return jsonify({'message':'You must provide an username'}),404
 
-@app.route('/sign_up',methods=['GET','POST'])
-def sign_up():
-    if request.method == 'GET':
-        plans=Plan.query.all()
-        languages=Language.query.all()
-        return render_template('outside/sign_up.html',title="SIGNUP",
-            plans=plans, languages=languages)
-    if request.method == 'POST':
-        body=request.get_json()
-        username=body['username']
-        if User.query.filter_by(username=username).first() is None:
-            email=body['email']
-            password=body['password']
-            plan_id=body['plan']
-            new_user=User(username=username,email=email,plan_id=plan_id)
-            new_user.set_password(password=password)
-            db.session.add(new_user)
-            db.session.commit()
-            new_profile=Profile(user_id=new_user.id,profile_name=username,
-                language_id=body['language'])
-            db.session.add(new_profile)
-            db.session.commit()
-            return jsonify({'message':'User created'}),201
-        return jsonify({'message':'Username already taken'}),200
+# @app.route('/sign_up',methods=['GET','POST'])
+# def sign_up():
+#     if request.method == 'GET':
+#         plans=Plan.query.all()
+#         languages=Language.query.all()
+#         return render_template('outside/sign_up.html',title="SIGNUP",
+#             plans=plans, languages=languages)
+#     if request.method == 'POST':
+#         body=request.get_json()
+#         username=body['username']
+#         if User.query.filter_by(username=username).first() is None:
+#             email=body['email']
+#             password=body['password']
+#             plan_id=body['plan']
+#             new_user=User(username=username,email=email,plan_id=plan_id)
+#             new_user.set_password(password=password)
+#             db.session.add(new_user)
+#             db.session.commit()
+#             new_profile=Profile(user_id=new_user.id,profile_name=username,
+#                 language_id=body['language'])
+#             db.session.add(new_profile)
+#             db.session.commit()
+#             return jsonify({'message':'User created'}),201
+#         return jsonify({'message':'Username already taken'}),200
 
-@app.route('/home')
-@login_required
-def home():
-    profile=request.args.get('profile')
-    # profiles=None
-    # current_profile_info=None
-    if profile is None:
-        profiles=Profile.query.filter_by(user_id=current_user.id)
-        current_profile=profiles[0]
-        print('None {}'.format(current_profile))
-    if not profile is None:
-        profiles=Profile.query.filter_by(user_id=current_user.id)
-        current_profile=Profile.query.filter_by(profile_name=profile).filter(Profile.user_id == current_user.id).first()
-        print('Not None {}'.format(current_profile))
+# @app.route('/home')
+# @login_required
+# def home():
+#     profile=request.args.get('profile')
+#     # profiles=None
+#     # current_profile_info=None
+#     if profile is None:
+#         profiles=Profile.query.filter_by(user_id=current_user.id)
+#         current_profile=profiles[0]
+#         print('None {}'.format(current_profile))
+#     if not profile is None:
+#         profiles=Profile.query.filter_by(user_id=current_user.id)
+#         current_profile=Profile.query.filter_by(profile_name=profile).filter(Profile.user_id == current_user.id).first()
+#         print('Not None {}'.format(current_profile))
 
-    return render_template('inside/home.html',title='HOME',current_profile=current_profile,profiles=profiles)
+#     return render_template('inside/home.html',title='HOME',current_profile=current_profile,profiles=profiles)
     
 # @app.route('/profiles/create',methods=['GET','POST'])
 # def create_profile():

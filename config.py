@@ -7,4 +7,5 @@ class Config:
         'sqlite:///'+os.path.join(basedir,'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     UPLOAD_FOLDER=os.environ.get('UPLOAD_FOLDER') or \
-        'img_profile'
+        'imgs/profile'
+    IMGS_FOLDER=os.environ.get('IMGS_FOLDER') or 'imgs'

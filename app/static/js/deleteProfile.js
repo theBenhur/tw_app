@@ -13,6 +13,7 @@ function deleteProfile(e){
             alert(response.message)
             window.location.href='/home'
         }
+        if(response.status == 404) alert(response.message)
     })
 }
 
