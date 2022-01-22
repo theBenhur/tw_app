@@ -6,3 +6,5 @@ movies_app
 imgs
 movie_data.py
 serie_data.py
+plan_data.py
+rate_data.py
